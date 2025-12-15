@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace arbolBinario
 {
@@ -48,10 +44,9 @@ namespace arbolBinario
             if (actual.Valor == valor)
                 return true;
 
-            if (valor < actual.Valor)
-                return BuscarRecursivo(actual.Izquierdo, valor);
-            else
-                return BuscarRecursivo(actual.Derecho, valor);
+            return valor < actual.Valor
+                ? BuscarRecursivo(actual.Izquierdo, valor)
+                : BuscarRecursivo(actual.Derecho, valor);
         }
 
         // ELIMINACIÓN
@@ -71,18 +66,18 @@ namespace arbolBinario
                 actual.Derecho = EliminarRecursivo(actual.Derecho, valor);
             else
             {
-                // Caso 1: sin hijos
+                // Sin hijos
                 if (actual.Izquierdo == null && actual.Derecho == null)
                     return null;
 
-                // Caso 2: un hijo
+                // Un hijo
                 if (actual.Izquierdo == null)
                     return actual.Derecho;
 
                 if (actual.Derecho == null)
                     return actual.Izquierdo;
 
-                // Caso 3: dos hijos
+                // Dos hijos
                 int menor = EncontrarMinimo(actual.Derecho);
                 actual.Valor = menor;
                 actual.Derecho = EliminarRecursivo(actual.Derecho, menor);
@@ -99,14 +94,21 @@ namespace arbolBinario
             return actual.Valor;
         }
 
-        // RECORRIDO (opcional para mostrar)
-        public void InOrden(Nodo actual)
+        // RECORRIDO INORDEN (devuelve texto)
+        public string InOrden()
+        {
+            StringBuilder resultado = new StringBuilder();
+            InOrdenRecursivo(Raiz, resultado);
+            return resultado.Length == 0 ? "Árbol vacío" : resultado.ToString();
+        }
+
+        private void InOrdenRecursivo(Nodo actual, StringBuilder resultado)
         {
             if (actual != null)
             {
-                InOrden(actual.Izquierdo);
-                Console.Write(actual.Valor + " ");
-                InOrden(actual.Derecho);
+                InOrdenRecursivo(actual.Izquierdo, resultado);
+                resultado.Append(actual.Valor + " ");
+                InOrdenRecursivo(actual.Derecho, resultado);
             }
         }
     }

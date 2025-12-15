@@ -1,5 +1,5 @@
-﻿using arbolBinario;
-using System;
+﻿using System;
+using arbolBinario;
 
 class Program
 {
@@ -16,15 +16,15 @@ class Program
         arbol.Insertar(80);
 
         Console.WriteLine("Árbol en inorden:");
-        arbol.InOrden(arbol.Raiz);
+        Console.WriteLine(arbol.InOrden());
 
-        Console.WriteLine("\n\nBuscar 40: " + arbol.Buscar(40));
+        Console.WriteLine("\nBuscar 40: " + arbol.Buscar(40));
         Console.WriteLine("Buscar 100: " + arbol.Buscar(100));
 
         arbol.Eliminar(30);
 
         Console.WriteLine("\nÁrbol después de eliminar 30:");
-        arbol.InOrden(arbol.Raiz);
+        Console.WriteLine(arbol.InOrden());
 
         Console.ReadKey();
     }
